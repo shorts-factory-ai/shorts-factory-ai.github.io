@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte - Seletor TikTok</title>
+    <style>
+        :root {
+            --primary: #FF0050;
+            --dark: #121212;
+            --card-bg: #1e1e1e;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--dark);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .header-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .header-title h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header-title p { color: #aaa; font-size: 1.1rem; }
+        
+        .support-options {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
+            padding: 20px;
+        }
+        .support-card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 300px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .support-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 0, 80, 0.2);
+        }
+        .support-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .support-card h2 { margin-bottom: 15px; font-size: 1.5rem; }
+        .support-card p { color: #ccc; font-size: 0.95rem; line-height: 1.5; }
+        
+        /* Badge para Desenvolvedores */
+        .dev-badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-title">
+        <h1>Como podemos ajudar?</h1>
+        <p>Escolha o portal de suporte mais adequado para você.</p>
+    </div>
+
+    <div class="support-options">
+        <a href="suporte_user.html" class="support-card">
+            <span class="icon">👤</span>
+            <h2>Suporte para Usuário</h2>
+            <p>Dúvidas sobre licença, instalação, pagamentos e uso geral do software no seu dia a dia.</p>
+        </a>
+
+        <a href="suporte_dev.html" class="support-card">
+            <span class="dev-badge">Docs</span>
+            <span class="icon">👨‍💻</span>
+            <h2>Suporte para Desenvolvedor</h2>
+            <p>Arquitetura técnica, documentação dos módulos (Extrator, UI), código-fonte e configurações avançadas.</p>
+        </a>
+    </div>
+</body>
+</html>

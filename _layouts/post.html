@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<article class="blog-content" style="max-width: 800px; margin: 40px auto; padding: 20px;">
+    <header style="margin-bottom: 40px; text-align: center;">
+        <h1 style="color: var(--tertiary); font-size: 2.5rem; margin-bottom: 10px;">{{ page.title }}</h1>
+        <p style="color: #888;">Postado em <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d/%m/%Y" }}</time></p>
+    </header>
+
+    <div class="content">
+        {{ content }}
+    </div>
+</article>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Técnica - Seletor TikTok</title>
+    <style>
+        :root {
+            --primary: #FF0050;
+            --dark: #0f0f0f;
+            --sidebar: #1a1a1a;
+            --text: #e0e0e0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--dark);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar);
+            padding: 20px 0;
+            border-right: 1px solid #333;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            padding: 0 20px; margin-bottom: 20px; font-size: 1.2rem; color: #fff;
+        }
+        .nav-links { list-style: none; padding: 0; margin: 0; }
+        .nav-links li a {
+            display: block; padding: 12px 20px; color: #aaa; text-decoration: none; border-left: 3px solid transparent; transition: 0.2s;
+        }
+        .nav-links li a:hover, .nav-links li a.active {
+            background-color: rgba(255, 0, 80, 0.1); color: #fff; border-left-color: var(--primary);
+        }
+
+        /* Content */
+        .content {
+            flex: 1; margin-left: 250px; padding: 40px; max-width: 900px;
+        }
+        .content h1 { font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
+        .content h2 { margin-top: 40px; color: var(--primary); border-bottom: 1px solid #333; padding-bottom: 10px;}
+        .content p { line-height: 1.7; margin-bottom: 20px; }
+        .content ul { line-height: 1.7; margin-bottom: 20px; }
+        
+        .code-block {
+            background: #1e1e1e; padding: 15px; border-radius: 8px; border: 1px solid #333; font-family: monospace; color: #a5d6ff; overflow-x: auto;
+        }
+        
+        /* Architecture Box */
+        .arch-box {
+            background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Documentação (Docs)</h2>
+        <ul class="nav-links">
+            <li><a href="#">Visão Geral</a></li>
+            <li><a href="#" class="active">Módulo: Extrator</a></li>
+            <li><a href="#">Módulo: Automação UI</a></li>
+            <li><a href="#">Dependências & Setup</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>Módulo: Extrator</h1>
+        <p>O Módulo Extrator é responsável por localizar pessoas específicas (através de fotos de referência) ou identificar trechos de interesse em vídeos longos para a criação automática de cortes (clips) e frames.</p>
+        
+        <div class="arch-box">
+            <h3>Arquitetura Híbrida (C++ & Python)</h3>
+            <p>O extrator divide responsabilidades para maximizar performance e facilidade de integração com IA:</p>
+            <ul>
+                <li><strong>C++ (PanelExtracao.cpp):</strong> Controla a interface gráfica (wxWidgets), gerencia threads e passa configurações via <code>PythonBridge</code>.</li>
+                <li><strong>Python (Cython):</strong> <code>detect_faces_core.pyx</code> atua na busca de padrões faciais dentro do loop de vídeo, comunicando-se com modelos leves de Deep Learning do OpenCV.</li>
+            </ul>
+        </div>
+
+        <h2>Fluxos de Execução</h2>
+        
+        <h3>1. Motor de Cortes por Rosto</h3>
+        <p>Gere cortes dinâmicos a partir de um arquivo de vídeo grande.</p>
+        <ul>
+            <li><strong>Entrypoint:</strong> <code>detect_faces.py</code></li>
+            <li><strong>Core Logic:</strong> <code>detect_faces_core.pyx</code> (compilado para <code>.pyd</code> no Windows).</li>
+            <li><strong>Técnica:</strong> Usa o modelo <strong>FaceRecognizerSF</strong> para extrair características da foto de referência e calcula a distância Cosseno (limiar de ~0.363) sobre os frames. Retorna um arquivo TXT com a minutagem de início e fim.</li>
+        </ul>
+
+        <h3>2. Motor de Extração de Frames</h3>
+        <p>Salva <em>thumbnails</em> ou frames individuais sempre que o rosto mapeado aparecer.</p>
+        <ul>
+            <li><strong>Arquivo:</strong> <code>extract_frames.py</code></li>
+            <li><strong>Lógica de Performance:</strong> Em vez de processar 100% dos frames, o algoritmo salta uma quantidade fixa (<code>frame_skip</code>) e avalia o <code>min_interval</code> (em segundos) para evitar capturar frames repetidos da mesma cena sequencial.</li>
+        </ul>
+
+        <h2>Dependências de Visão Computacional</h2>
+        <div class="code-block">
+- opencv-python (cv2)
+- numpy
+- Modelos ONNX (Baixados em tempo de execução via OpenCV Zoo):
+  * face_detection_yunet_2023mar.onnx
+  * face_recognition_sface_2021dec.onnx
+        </div>
+    </div>
+</body>
+</html>

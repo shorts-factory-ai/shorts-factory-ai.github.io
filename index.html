@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seletor Hub - Escolha seu Destino</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos para o Mosaico de Fotos */
+        .split-banco {
+            position: relative;
+            overflow: hidden; /* Evita que as fotos vazem do lado direito */
+        }
+        .mosaic-bg {
+            position: absolute;
+            top: -5%; left: -5%; width: 110%; height: 110%; /* Ligeiramente maior para cobrir o fundo todo */
+            display: grid;
+            /* Cria colunas responsivas preenchendo o espaço: */
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-auto-rows: 100px; /* Altura de cada foto no mosaico */
+            gap: 4px;
+            z-index: 0;
+        }
+        .mosaic-bg img {
+            width: 100%; height: 100%;
+            object-fit: cover; /* Faz as fotos não distorcerem */
+            border-radius: 4px;
+            opacity: 0.35; /* Deixa as fotos mais transparentes para focar no texto */
+            transition: opacity 0.3s ease;
+        }
+        .mosaic-bg img:hover {
+            opacity: 0.8; /* Efeito bacana de acender a foto quando o mouse passa por cima */
+        }
+        .mosaic-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(18,18,18,0.9) 0%, rgba(18,18,18,0.5) 100%);
+            z-index: 1; /* Fica entre as fotos e o texto */
+        }
+        .split-content {
+            position: relative;
+            z-index: 2; /* Mantém o texto no topo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+        <!-- Lado Esquerdo: Software -->
+        <div class="split split-software">
+            <h2>Automação IA</h2>
+            <p>Crie vídeos virais automaticamente para TikTok e Reels usando Inteligência Artificial.</p>
+            <a href="software.html" class="btn-enter">Acessar Software</a>
+        </div>
+
+        <!-- Centro: Blog Técnico -->
+        <div class="split split-blog">
+            <div class="split-content">
+                <h2>Blog MLOps</h2>
+                <p>Artigos técnicos, tutoriais de engenharia e arquiteturas de dados.</p>
+                <a href="blog/" class="btn-enter">Acessar Blog</a>
+            </div>
+        </div>
+
+        <!-- Lado Direito: Banco de Arquivos -->
+        <div class="split split-banco">
+            <!-- Grid de Fotos do Mosaico -->
+            <div class="mosaic-bg">
+                <!-- Adicione ou substitua os links abaixo pelas URLs reais das suas fotos -->
+                <img src="assets/foto1.jpg" alt="Asset">
+                <img src="assets/foto2.jpg" alt="Asset">
+                <img src="assets/foto3.jpg" alt="Asset">
+                <img src="assets/foto4.jpg" alt="Asset">
+                <img src="assets/foto5.jpg" alt="Asset">
+                <img src="assets/foto6.jpg" alt="Asset">
+                <img src="assets/foto7.jpg" alt="Asset">
+                <img src="assets/foto8.jpg" alt="Asset">
+                <!-- Cole mais linhas <img> acima para criar dezenas de blocos no mosaico -->
+            </div>
+            <!-- Sobreposição escura para garantir leitura dos textos -->
+            <div class="mosaic-overlay"></div>
+            
+            <!-- Conteúdo Principal -->
+            <div class="split-content">
+                <h2>Banco de Assets</h2>
+                <p>Acesse nossa biblioteca exclusiva de vídeos e imagens de personagens(filmes e séries) e celebridades.</p>
+                <a href="banco.html" class="btn-enter">Acessar Banco</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

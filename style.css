@@ -1,0 +1,103 @@
+
+:root {
+    --primary: #FF0050; /* TikTok Red */
+    --secondary: #00F2EA; /* TikTok Cyan */
+    --tertiary: #00FF66; /* Tech Green for Blog */
+    --dark: #121212;
+    --card-bg: #1e1e1e;
+    --text: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--dark);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* Portal Split Screen */
+.portal-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.split {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid #333;
+}
+
+.split:hover { flex: 1.5; }
+.split-software { background: linear-gradient(45deg, #1a1a1a, #2a2a2a); }
+.split-banco { background: linear-gradient(45deg, #0f0f0f, #1a1a1a); }
+.split-blog { background: linear-gradient(45deg, #0a1912, #11281e); }
+
+.split h2 { font-size: 3rem; z-index: 2; margin-bottom: 10px; }
+.split p { font-size: 1.2rem; color: #ccc; z-index: 2; max-width: 400px; text-align: center; }
+.btn-enter {
+    margin-top: 30px;
+    padding: 15px 40px;
+    border: 2px solid var(--primary);
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+    z-index: 2;
+}
+.split-banco .btn-enter { border-color: var(--secondary); }
+.split-blog .btn-enter { border-color: var(--tertiary); }
+.btn-enter:hover { background: white; color: black; }
+
+/* Galeria Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+.media-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+.media-card:hover { transform: translateY(-5px); }
+.media-thumb {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: #333;
+}
+.media-info { padding: 15px; }
+.media-title { font-weight: bold; margin-bottom: 5px; display: block; }
+.media-tag { font-size: 0.8rem; color: #888; background: #333; padding: 2px 8px; border-radius: 4px; }
+.btn-download {
+    display: block;
+    text-align: center;
+    background: var(--secondary);
+    color: #000;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .portal-container { flex-direction: column; height: auto; min-height: 100vh; }
+    .split { border-right: none; border-bottom: 1px solid #333; min-height: 33.33vh; padding: 40px 15px; }
+    .split h2 { font-size: 2.2rem; }
+    .split p { font-size: 1rem; margin-bottom: 10px; }
+    .btn-enter { margin-top: 15px; padding: 12px 25px; }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+    <style>
+        /* Estilos adicionais para tipografia técnica no blog */
+        .blog-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ddd;
+        }
+        .blog-content h1, .blog-content h2, .blog-content h3 {
+            color: white;
+            margin-top: 40px;
+        }
+        .blog-content p {
+            margin-bottom: 20px;
+        }
+        .blog-content pre {
+            background-color: #0d1117;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid #30363d;
+        }
+        .blog-content code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        .blog-content pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header style="padding: 20px; background: #1a1a1a; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333;">
+        <div style="font-size: 1.5rem; font-weight: bold; color: var(--tertiary);">👨‍💻 {{ site.title }}</div>
+        <a href="{{ '/' | relative_url }}" style="color: #ccc;">&larr; Voltar ao Início</a>
+    </header>
+
+    <main>
+        {{ content }}
+    </main>
+
+    <footer style="text-align: center; padding: 40px; color: #666; border-top: 1px solid #333; margin-top: 50px;">
+        <p>&copy; 2024 {{ site.title }}</p>
+    </footer>
+</body>
+</html>
