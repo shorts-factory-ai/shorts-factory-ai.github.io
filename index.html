@@ -5,100 +5,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seletor TikTok - Automação de Vídeos Virais</title>
     <meta name="description" content="Crie vídeos para TikTok, Shorts e Reels automaticamente com Inteligência Artificial.">
+    <!-- Importando a fonte estilo CapCut -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #FF0050; /* Cor TikTok */
-            --dark: #121212;
-            --light: #ffffff;
+            --accent: #00f2fe; /* Azul tecnológico para compor o gradiente */
+            --dark-bg: #050505; /* Fundo quase preto estilo CapCut */
+            --glass-bg: rgba(255, 255, 255, 0.03); /* Fundo de vidro */
+            --glass-border: rgba(255, 255, 255, 0.08); /* Borda do vidro */
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-        }
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
         
-        /* Header */
-        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: bold; font-size: 1.5rem; color: var(--primary); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            /* Leve brilho radial no topo simulando iluminação */
+            background-image: radial-gradient(circle at 50% -20%, rgba(255, 0, 80, 0.15), transparent 50%);
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Header Glass */
+        header { 
+            padding: 20px 24px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; color: var(--text-main); }
+        .logo span { color: var(--primary); }
         
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 80px 20px;
+            padding: 100px 20px 80px;
         }
-        h1 { font-size: 3rem; margin-bottom: 20px; }
-        p.subtitle { font-size: 1.2rem; color: #ccc; max-width: 600px; margin: 0 auto 40px auto; }
+        h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            letter-spacing: -1px; 
+            margin-bottom: 24px; 
+            line-height: 1.1;
+        }
+        .hero p.subtitle { 
+            font-size: 1.25rem; 
+            color: var(--text-muted); 
+            max-width: 650px; 
+            margin: 0 auto 50px auto; 
+            font-weight: 300;
+        }
         
-        /* Botão de Compra */
-        .btn-cta {
-            background-color: var(--primary);
+        /* Glass Panel (Checkout) */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px; 
+            border-radius: 24px; 
+            max-width: 440px; 
+            margin: 0 auto; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .glass-panel:hover { transform: translateY(-5px); border-color: rgba(255,0,80,0.3); }
+        
+        .glass-panel input {
+            width: 100%; 
+            padding: 14px 16px; 
+            margin-bottom: 20px; 
+            border-radius: 12px; 
+            border: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.3);
             color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: transform 0.2s;
-            display: inline-block;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
         }
-        .btn-cta:hover { transform: scale(1.05); background-color: #d60043; }
+        .glass-panel input:focus { outline: none; border-color: var(--primary); }
         
-        /* Features */
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 50px 0; }
-        .feature-card { background: #1e1e1e; padding: 30px; border-radius: 10px; }
-        .feature-card h3 { color: var(--primary); }
+        /* Botões Estilo Premium */
+        .btn-cta {
+            background: linear-gradient(135deg, var(--primary), #cc0040);
+            color: white;
+            padding: 16px 40px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 10px 20px -10px var(--primary);
+        }
+        .btn-cta:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 15px 25px -10px var(--primary); 
+            filter: brightness(1.1);
+        }
         
-        /* Demo Video */
+        .btn-download {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            box-shadow: none;
+        }
+        .btn-download:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+        /* Video Container */
+        .video-wrapper { padding: 0 20px; margin-bottom: 100px; }
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
-            overflow: hidden;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            border-radius: 10px;
-            border: 2px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.8);
         }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* Footer */
-        footer { text-align: center; padding: 40px; color: #666; font-size: 0.9rem; border-top: 1px solid #333; }
+        /* Features Bento Box */
+        .features { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 24px; 
+            margin-bottom: 100px; 
+        }
+        .feature-card { 
+            background: var(--glass-bg); 
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px; 
+            border-radius: 20px; 
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-5px); }
+        .feature-icon { font-size: 2rem; margin-bottom: 20px; display: inline-block; }
+        .feature-card h3 { font-size: 1.3rem; margin-bottom: 12px; font-weight: 600; }
+        .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Screenshots */
+        .screenshots-section { margin-bottom: 100px; }
+        .screenshots-section h2 { text-align: center; margin-bottom: 50px; font-size: 2.5rem; }
+        .screenshot-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
+        .screenshot-gallery figure { 
+            flex: 0 1 360px; 
+            border-radius: 16px; 
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            padding: 10px;
+            transition: transform 0.3s;
+        }
+        .screenshot-gallery figure:hover { transform: scale(1.02); border-color: var(--primary); }
+        .screenshot-gallery img { width: 100%; height: auto; border-radius: 8px; }
+        .screenshot-gallery figcaption { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 15px; padding-bottom: 5px; }
+
+        footer { text-align: center; padding: 40px; color: #555; font-size: 0.9rem; border-top: 1px solid var(--glass-border); }
+        
+        /* Helpers */
+        .text-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
-    <nav style="padding: 10px 20px; background: #000;">
-        <a href="index.html" style="color: #fff; font-weight: bold;">&larr; Voltar ao Portal</a>
-    </nav>
+    <header>
+        <div class="logo">Seletor<span>TikTok</span></div>
+        <a href="suporte.html" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Suporte ao Cliente</a>
+    </header>
 
     <div class="container">
-        <header>
-            <div class="logo">Seletor TikTok</div>
-            <!-- Link para suporte ou contato -->
-            <a href="suporte.html" target="_blank" style="color: white; text-decoration: none; border-bottom: 1px solid var(--primary); padding-bottom: 2px;">Suporte</a>
-        </header>
-
         <section class="hero">
-            <h1>Crie Vídeos Virais em Minutos</h1>
+            <h1>Crie Vídeos Virais<br>em Minutos</h1>
             <p class="subtitle">
-                Automatize a edição, legendas e narração com IA. 
-                Pare de perder horas editando e comece a escalar seus canais Dark.
+                Automatize a edição, legendas e narração com Inteligência Artificial. 
+                Pare de perder horas editando e escale seus canais Dark.
             </p>
             
-            <!-- FORMULARIO DE CHECKOUT INTEGRADO -->
-            <div style="background: #1e1e1e; padding: 25px; border-radius: 15px; max-width: 400px; margin: 0 auto; border: 1px solid #333;">
-                <p style="margin-bottom: 15px; font-weight: bold; color: white;">Digite seu e-mail para receber a licença:</p>
-                <input type="email" id="email-cliente" placeholder="seu@email.com" style="width: 90%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: none; font-size: 1rem;">
+            <div class="glass-panel">
+                <span class="text-label" style="text-align: left;">Digite seu e-mail para receber a licença:</span>
+                <input type="email" id="email-cliente" placeholder="seu@email.com">
                 
-                <p style="margin-bottom: 15px; font-weight: bold; color: white;">Confirme seu e-mail:</p>
-                <input type="email" id="email-confirmacao" placeholder="confirme@email.com" style="width: 90%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: none; font-size: 1rem;">
+                <span class="text-label" style="text-align: left;">Confirme seu e-mail:</span>
+                <input type="email" id="email-confirmacao" placeholder="confirme@email.com">
                 
-                <button id="btn-comprar" onclick="validarEComprar()" class="btn-cta" style="width: 100%; cursor: pointer; border: none;">Comprar Agora (R$ 19,90)</button>
-                <p id="msg-status" style="font-size: 0.8rem; color: #ccc; margin-top: 10px; min-height: 20px;"></p>
+                <button id="btn-comprar" onclick="validarEComprar()" class="btn-cta">Comprar Agora (R$ 19,90)</button>
+                <p id="msg-status" style="font-size: 0.8rem; color: #ff4d4d; margin-top: 15px; min-height: 20px;"></p>
+
+                <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--glass-border);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Já possui sua licença?</p>
+                    <a href="https://github.com/Jacsonrn/Automatizador-Videos--Youtube--Tiktok-Distribui-o/releases/download/Seletor_v1.4/Instalador_Seletor_v1.2.exe" class="btn-cta btn-download">
+                        📥 Baixar Instalador v1.4
+                    </a>
+                    <p style="font-size: 0.75rem; margin-top: 15px; color: #555;">Compatível com Windows 10/11</p>
+                </div>
             </div>
+            
             <script src="checkout_integration.js"></script>
             <script>
                 function validarEComprar() {
@@ -106,77 +226,63 @@
                     const confirmacao = document.getElementById('email-confirmacao').value.trim();
                     
                     if (email !== confirmacao) {
-                        alert("Os e-mails não coincidem. Por favor, verifique.");
+                        document.getElementById('msg-status').innerText = "Os e-mails não coincidem. Por favor, verifique.";
                         return;
                     }
-                    iniciarCompra();
+                    document.getElementById('msg-status').innerText = "";
+                    iniciarCompra(); // Função do seu arquivo js
                 }
             </script>
-
-            <!-- Área de Download (Para quem já comprou) -->
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; max-width: 400px; margin-left: auto; margin-right: auto;">
-                <p style="color: #ccc; margin-bottom: 10px;">Já possui sua licença?</p>
-                <a href="https://github.com/Jacsonrn/Automatizador-Videos--Youtube--Tiktok-Distribui-o/releases/download/Seletor_v1.4/Instalador_Seletor_v1.2.exe" class="btn-cta" style="background-color: #25D366; font-size: 1rem; padding: 12px 30px; display: inline-flex; align-items: center; gap: 10px;">
-                    <span>📥</span> Baixar Instalador v1.4
-                </a>
-            </div>
-            
-            <p style="font-size: 0.8rem; margin-top: 10px; color: #888;">Compatível com Windows 10/11</p>
         </section>
+    </div>
 
-        <!-- Área do Vídeo -->
-        <section style="margin-bottom: 60px;">
-            <div class="video-container">
-                <!-- SUBSTITUA PELO ID DO SEU VIDEO DO YOUTUBE -->
-                <iframe src="https://www.youtube.com/embed/SEU_ID_VIDEO" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </section>
+    <section class="video-wrapper">
+        <div class="video-container">
+            <!-- SUBSTITUA PELO ID DO SEU VIDEO DO YOUTUBE -->
+            <iframe src="https://www.youtube.com/embed/SEU_ID_VIDEO" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
 
+    <div class="container">
         <section class="features">
             <div class="feature-card">
-                <h3>✂️ Cortes Automáticos</h3>
-                <p>Detecta silêncios e remove partes chatas automaticamente. Mantém o ritmo acelerado que o TikTok exige.</p>
+                <span class="feature-icon">✂️</span>
+                <h3>Cortes Automáticos</h3>
+                <p>Detecta silêncios e remove partes chatas automaticamente. Mantém o ritmo acelerado que o algoritmo exige para viralizar.</p>
             </div>
             <div class="feature-card">
-                <h3>🤖 Narração IA</h3>
-                <p>Integração com Azure e OpenAI para gerar vozes ultra-realistas sem você precisar gravar nada.</p>
+                <span class="feature-icon">🤖</span>
+                <h3>Narração IA</h3>
+                <p>Integração com serviços em nuvem para gerar vozes ultra-realistas. Crie conteúdo sem precisar gravar uma única palavra.</p>
             </div>
             <div class="feature-card">
-                <h3>📝 Legendas Dinâmicas</h3>
-                <p>Gera legendas estilo "Karaokê" ou palavra-por-palavra automaticamente, sincronizadas perfeitamente.</p>
+                <span class="feature-icon">📝</span>
+                <h3>Legendas Dinâmicas</h3>
+                <p>Gera legendas estilo "Karaokê" ou palavra-por-palavra automaticamente, sincronizadas perfeitamente com o áudio.</p>
             </div>
         </section>
 
-        <!-- Screenshots Section -->
-        <section style="padding: 40px 20px; background-color: #1e1e1e; border-radius: 15px; margin-bottom: 60px;">
-            <h2 style="text-align: center; margin-bottom: 40px;">Veja o Software em Ação</h2>
-            <div class="screenshot-gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                <!-- IMPORTANTE: Coloque suas imagens na pasta 'assets' e substitua os nomes abaixo se necessário -->
-                <figure style="margin: 0; flex: 0 1 350px;">
-                    <img src="https://raw.githubusercontent.com/Jacsonrn/jacsonrn.github.io/main/screenshot_1.jpg.jpg" alt="Screenshot da interface principal" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #444;">
-                    <figcaption style="text-align: center; color: #ccc; font-size: 0.9rem; margin-top: 8px;">Screenshot da interface principal</figcaption>
+        <section class="screenshots-section">
+            <h2>Poderoso e Intuitivo</h2>
+            <div class="screenshot-gallery">
+                <figure>
+                    <img src="https://raw.githubusercontent.com/Jacsonrn/jacsonrn.github.io/main/screenshot_1.jpg.jpg" alt="Interface Principal">
+                    <figcaption>Interface limpa e focada em produtividade</figcaption>
                 </figure>
-                <figure style="margin: 0; flex: 0 1 350px;">
-                    <img src="https://raw.githubusercontent.com/Jacsonrn/jacsonrn.github.io/main/screenshot_2.jpg.jpg" alt="Screenshot do banco de fotos e videos" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #444;">
-                    <figcaption style="text-align: center; color: #ccc; font-size: 0.9rem; margin-top: 8px;">Screenshot do banco de fotos e videos</figcaption>
+                <figure>
+                    <img src="https://raw.githubusercontent.com/Jacsonrn/jacsonrn.github.io/main/screenshot_2.jpg.jpg" alt="Banco de Mídia">
+                    <figcaption>Gerenciador de ativos e biblioteca de vídeos</figcaption>
                 </figure>
-                <figure style="margin: 0; flex: 0 1 350px;">
-                    <img src="https://raw.githubusercontent.com/Jacsonrn/jacsonrn.github.io/main/screenshot_3.jpg.jpg" alt="Screenshot do Extrator de atores em filmes" style="width: 100%; height: auto; border-radius: 8px; border: 1px solid #444;">
-                    <figcaption style="text-align: center; color: #ccc; font-size: 0.9rem; margin-top: 8px;">Screenshot do Extrator de atores em filmes</figcaption>
+                <figure>
+                    <img src="https://raw.githubusercontent.com/Jacsonrn/jacsonrn.github.io/main/screenshot_3.jpg.jpg" alt="Extrator de Atores">
+                    <figcaption>Ferramentas avançadas de extração de cenas</figcaption>
                 </figure>
             </div>
-            <p style="text-align: center; color: #888; margin-top: 20px;">Interface intuitiva e poderosa, projetada para máxima produtividade.</p>
-        </section>
-
-        <section style="text-align: center; padding: 60px 0;">
-            <h2>Pronto para automatizar?</h2>
-            <br>
-            <button onclick="document.getElementById('email-cliente').focus()" class="btn-cta" style="cursor: pointer; border: none;">Comprar Agora (R$ 19,90)</button>
         </section>
 
         <footer>
             <p>&copy; 2024 Seletor TikTok. Todos os direitos reservados.</p>
-            <p>Este software não é afiliado ao TikTok/ByteDance.</p>
+            <p style="margin-top: 10px; font-size: 0.75rem;">Este software não é afiliado ao TikTok/ByteDance.</p>
         </footer>
     </div>
 
